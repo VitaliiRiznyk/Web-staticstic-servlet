@@ -25,9 +25,10 @@ public class InfoServlet extends HttpServlet {
         String name = request.getParameter("name");
         String answer1 = request.getParameter("answear1");
         String answer2 = request.getParameter("answear2");
-
-        InfoServlet.createStatistic(answer1);
-        InfoServlet.createStatistic(answer2);
+        synchronized (this) {
+            InfoServlet.createStatistic(answer1);
+            InfoServlet.createStatistic(answer2);
+        }
 
         if (name.length()>0) {
             HttpSession session = request.getSession(true);
